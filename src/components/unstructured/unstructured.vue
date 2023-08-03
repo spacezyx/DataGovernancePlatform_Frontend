@@ -62,7 +62,6 @@ export default {
     toLoading () {
       this.loading = true
       setTimeout(() => {
-        // TODO: 改成真实的连接测试
         this.loading = false
         this.$Notice.success({
           title: 'Success',

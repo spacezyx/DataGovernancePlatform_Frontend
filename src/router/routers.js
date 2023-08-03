@@ -79,6 +79,35 @@ export default [
     ]
   },
   {
+    path: '/metadata',
+    name: '元数据管理',
+    meta: {
+      icon: 'ios-stats',
+      title: '元数据管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'datasource',
+        name: '数据源列表',
+        meta: {
+          icon: 'md-add',
+          title: '数据源列表'
+        },
+        component: () => import('@/view/metadata/datasource.vue')
+      },
+      {
+        path: 'metamodel',
+        name: '抽取结果展示',
+        meta: {
+          icon: 'ios-bookmark-outline',
+          title: '抽取结果展示'
+        },
+        component: () => import('@/view/metadata/datasource.vue')
+      }
+    ]
+  },
+  {
     path: '/message',
     name: 'message',
     component: Main,

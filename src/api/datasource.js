@@ -23,6 +23,13 @@ export const getManageVO = () => {
   })
 }
 
+export const getDatasourceList = () => {
+  return axios.request({
+    url: 'datasource/getDatasourceList',
+    method: 'get'
+  })
+}
+
 export const deleteDatasource = (id) => {
   return axios.request({
     url: `datasource/delete/${id}`,

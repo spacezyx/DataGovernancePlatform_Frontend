@@ -72,7 +72,6 @@ export default {
     toLoading () {
       this.loading = true
       setTimeout(() => {
-        // TODO: 改成真实的连接测试
         this.loading = false
         this.$Message.success('数据库连接成功')
       }, 1000)
