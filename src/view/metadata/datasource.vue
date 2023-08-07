@@ -143,10 +143,10 @@ export default {
   },
   methods: {
     show (index) {
-      if (this.tableData[index].lastExtractTime == null) {
+      if (this.tableData[index].extractFlag === false) {
         this.tableData[index].lastExtractTime = '此数据源尚未抽取'
       }
-      if (this.tableData[index].lastFuseTime == null) {
+      if (this.tableData[index].fuseFlag === false) {
         this.tableData[index].lastFuseTime = '此数据源尚未融合'
       }
       this.$Modal.info({

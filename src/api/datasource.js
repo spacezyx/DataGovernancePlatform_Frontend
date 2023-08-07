@@ -36,3 +36,17 @@ export const deleteDatasource = (id) => {
     method: 'delete'
   })
 }
+
+export const getSelectDatasourceList = () => {
+  return axios.request({
+    url: `datasource/getSelectDatasourceList`,
+    method: 'get'
+  })
+}
+
+export const getMetadataGraph = (id) => {
+  return axios.request({
+    url: `graph/getMetadataGraph/${id}`,
+    method: 'get'
+  })
+}
