@@ -17,9 +17,10 @@ export default {
     return {
       graphOptions: {
         allowSwitchLineShape: true,
+        defaultNodeBorderWidth: 0,
         allowSwitchJunctionPoint: true,
         defaultJunctionPoint: 'border',
-        // allowAutoLayoutIfSupport: false,
+        // allowAutoLayoutIfSupport: true,
         // 这里可以参考"Graph 图谱"中的参数进行设置
         layouts: [
           {
@@ -44,6 +45,12 @@ export default {
     },
     onLineClick (lineObject, $event) {
       console.log('onLineClick:', lineObject)
+    }
+  },
+  watch: {
+    // 使用 watch 监听父组件的 count 值，并在 count 更新时自动运行相关函数
+    graph_json_data () {
+      this.showSeeksGraph(this.graph_json_data)
     }
   }
 }

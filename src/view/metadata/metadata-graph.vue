@@ -1,12 +1,19 @@
 <template>
   <div>
     <div style="height:calc(100vh - 50px);">
-      <Card>
-        <Select v-model="selectItem" style="width:200px" @on-change="selectedMethod">
-          <Option v-for="item in selectList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-        </Select>
-        <DataGraph :graph_json_data="graph_json_data" />
-      </Card>
+      <Select v-model="selectItem" style="width:200px" @on-change="selectedMethod">
+        <Option v-for="item in selectList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+      </Select>
+      <div style="padding-top: 4px">
+        <div class="left">
+          <DataGraph :graph_json_data="graph_json_data" />
+        </div>
+        <div class="right">
+          <Card>
+            xxx
+          </Card>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -60,3 +67,25 @@ export default {
   }
 }
 </script>
+
+<style>
+.left {
+  float: left;
+  width: 75%;
+  background-color: #f2f2f2;
+}
+
+.right {
+  float: left;
+  width: 25%;
+  padding-left: 4px;
+  background-color: #e6e6e6;
+}
+
+/* 清除浮动 */
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
