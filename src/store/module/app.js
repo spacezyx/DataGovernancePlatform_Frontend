@@ -32,7 +32,9 @@ export default {
     homeRoute: {},
     local: localRead('local'),
     errorList: [],
-    hasReadErrorPage: false
+    hasReadErrorPage: false,
+    selectedNode: [],
+    requestColumn: {}
   },
   getters: {
     menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
@@ -85,6 +87,12 @@ export default {
     },
     setHasReadErrorLoggerStatus (state, status = true) {
       state.hasReadErrorPage = status
+    },
+    updateSelectedNode (state, newValue) {
+      state.selectedNode = newValue
+    },
+    updateRequestColumn (state, newValue) {
+      state.requestColumn = newValue
     }
   },
   actions: {

@@ -11,7 +11,7 @@
 // relation-graph也支持在main.js文件中使用Vue.use(RelationGraph);这样，你就不需要下面这一行代码来引入了。
 import RelationGraph from 'relation-graph'
 import { getNodeTextRange } from '@/api/datasource'
-
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'data-graph',
@@ -38,6 +38,13 @@ export default {
     this.showSeeksGraph(this.graph_json_data)
   },
   methods: {
+    ...mapMutations(['updateSelectedNode', 'updateRequestColumn']),
+    updateV (value) {
+      this.$store.commit('updateSelectedNode', value)
+    },
+    updataR (value) {
+      this.$store.commit('updateRequestColumn', value)
+    },
     showSeeksGraph (graph_json_data) {
       // 以上数据中的node和link可以参考"Node节点"和"Link关系"中的参数进行配置
       this.$refs.seeksRelationGraph.setJsonData(graph_json_data, (seeksRGGraph) => {
@@ -72,7 +79,12 @@ export default {
       })
       // 有时候更改一些属性后，并不能马上同步到视图，这需要以下方法让视图强制根据数据同步到最新
       this.$refs.seeksRelationGraph.getInstance().dataUpdated()
-      this.searchRangeByNode(nodeObject)
+      if(nodeObject.color === '#65A3B7') {
+        this.searchRangeByNode(nodeObject)
+      } else {
+        this.updataR({})
+        this.updateV([])
+      }
     },
     // 查询操作
     searchRangeByNode (nodeObject) {
@@ -103,7 +115,8 @@ export default {
       console.log('body : ' + body.id + body.table + body.column)
       getNodeTextRange(body).then((response) => {
         const res = response.data
-        console.log(res)
+        this.updataR(body)
+        this.updateV(res)
       })
     },
     onLineClick (lineObject, $event) {

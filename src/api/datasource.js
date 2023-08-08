@@ -58,3 +58,11 @@ export const getNodeTextRange = (body) => {
     data: body
   })
 }
+
+export const getRangeValue = (body) => {
+  return axios.request({
+    url: '/graph/getRangeValue',
+    method: 'post',
+    data: body
+  })
+}

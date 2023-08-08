@@ -10,7 +10,21 @@
         </div>
         <div class="right">
           <Card style="height:calc(100vh - 50px)">
-            xxx
+            <Divider>属性取值</Divider>
+            <Row>
+              <Col>
+                <Select v-model="value" style="width:200px" multiple>
+                  <Option v-for="item in localValue" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+              </Col>
+            </Row>
+            <Row>
+              <Col style="margin-top: 10px">
+                <Button type="primary" @click="searchButtonClick">确认</Button>
+              </Col>
+            </Row>
+            <Divider>符合条件的数据</Divider>
+            <Table :columns="tableColumns" :data="tableData"></Table>
           </Card>
         </div>
       </div>
@@ -21,33 +35,23 @@
 <script>
 
 import DataGraph from '_c/data-graph/data-graph'
-import { getMetadataGraph, getSelectDatasourceList } from '@/api/datasource'
+import { getMetadataGraph, getRangeValue, getSelectDatasourceList } from '@/api/datasource'
+import { mapState } from 'vuex'
+import { Table } from 'iview'
 export default {
   name: 'metadata-graph',
-  components: { DataGraph },
+  components: { DataGraph, Table },
   data () {
     return {
+      value: '',
       selectList: {
         type: Array, // 假设 selectList 的类型是数组
         default: () => [] // 设置默认值，根据实际需要
       },
       selectItem: '',
-      graph_json_data: {}
-      // graph_json_data: {
-      //   rootId: 'a',
-      //   nodes: [
-      //     { id: 'a', text: 'A', borderColor: 'yellow' },
-      //     { id: 'b', text: 'B', color: '#43a2f1', fontColor: 'yellow' },
-      //     { id: 'c', text: 'C', nodeShape: 1, width: 80, height: 60 },
-      //     { id: 'e', text: 'E', nodeShape: 0, width: 150, height: 150 }
-      //   ],
-      //   lines: [
-      //     { from: 'a', to: 'b', text: '关系1', color: '#43a2f1' },
-      //     { from: 'a', to: 'c', text: '关系2' },
-      //     { from: 'a', to: 'e', text: '关系3' },
-      //     { from: 'b', to: 'e', color: '#67C23A' }
-      //   ]
-      // }
+      graph_json_data: {},
+      tableColumns: [],
+      tableData: []
     }
   },
   mounted () {
@@ -63,6 +67,37 @@ export default {
         this.graph_json_data = res.data
         console.log(this.graph_json_data)
       })
+    },
+    searchButtonClick () {
+      console.log(this.value)
+      console.log(this.localRequestColumn)
+      let body = {
+        id: this.localRequestColumn.id,
+        table: this.localRequestColumn.table,
+        column: this.localRequestColumn.column,
+        attr: this.value
+      }
+      getRangeValue(body).then(res => {
+        this.tableData = res.data
+        console.log(this.tableData)
+        this.tableColumns = Object.keys(this.tableData[0]).map(column => ({
+          title: column,
+          key: column
+        }))
+      })
+    }
+  },
+  computed: {
+    ...mapState(['selectedNode', 'requestColumn']),
+    localValue () {
+      console.log(this.$store.state.app.selectedNode)
+      this.value = ''
+      this.tableColumns = []
+      this.tableData = []
+      return this.$store.state.app.selectedNode // 将映射的状态属性赋值给本地变量
+    },
+    localRequestColumn () {
+      return this.$store.state.app.requestColumn
     }
   }
 }
