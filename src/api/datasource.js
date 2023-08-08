@@ -50,3 +50,11 @@ export const getMetadataGraph = (id) => {
     method: 'get'
   })
 }
+
+export const getNodeTextRange = (body) => {
+  return axios.request({
+    url: '/graph/getNodeTextRange',
+    method: 'post',
+    data: body
+  })
+}

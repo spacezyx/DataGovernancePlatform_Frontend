@@ -1,7 +1,8 @@
 <template>
   <div>
     <div style="height:calc(100vh - 50px);">
-      <RelationGraph ref="seeksRelationGraph" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" />
+      <RelationGraph ref="seeksRelationGraph" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick" >
+      </RelationGraph>
     </div>
   </div>
 </template>
@@ -9,6 +10,9 @@
 <script>
 // relation-graph也支持在main.js文件中使用Vue.use(RelationGraph);这样，你就不需要下面这一行代码来引入了。
 import RelationGraph from 'relation-graph'
+import { getNodeTextRange } from '@/api/datasource'
+
+
 export default {
   name: 'data-graph',
   components: { RelationGraph },
@@ -41,10 +45,68 @@ export default {
       })
     },
     onNodeClick (nodeObject, $event) {
-      console.log('onNodeClick:', nodeObject)
+      const allLinks = this.$refs.seeksRelationGraph.getLinks()
+      allLinks.forEach(link => { // 还原所有样式
+        link.relations.forEach(line => {
+          if (line.data.orignColor) {
+            line.color = line.data.orignColor
+          }
+          if (line.data.orignFontColor) {
+            line.fontColor = line.data.orignColor
+          }
+          if (line.data.orignLineWidth) {
+            line.lineWidth = line.data.orignLineWidth
+          }
+        })
+      })
+      // 让与{nodeObject}相关的所有连线高亮
+      allLinks.filter(link => (link.fromNode === nodeObject || link.toNode === nodeObject)).forEach(link => {
+        link.relations.forEach(line => {
+          line.data.orignColor = line.color
+          line.data.orignFontColor = line.fontColor || line.color
+          line.data.orignLineWidth = line.lineWidth || 1
+          line.color = '#ff0000'
+          line.fontColor = '#ff0000'
+          line.lineWidth = 3
+        })
+      })
+      // 有时候更改一些属性后，并不能马上同步到视图，这需要以下方法让视图强制根据数据同步到最新
+      this.$refs.seeksRelationGraph.getInstance().dataUpdated()
+      this.searchRangeByNode(nodeObject)
+    },
+    // 查询操作
+    searchRangeByNode (nodeObject) {
+      let fatherNode, father
+      let grandpaNode, grandpa
+      const allLinks = this.$refs.seeksRelationGraph.getInstance().getLinks()
+      // 找到对应的table
+      allLinks.filter(link => (link.toNode === nodeObject)).forEach(link => {
+        fatherNode = link.fromNode
+        if (fatherNode.color === '#B1BB96') {
+          console.log('fatherNode : ' + fatherNode)
+          father = fatherNode
+          const allFatherLinks = this.$refs.seeksRelationGraph.getLinks()
+          allFatherLinks.filter(link => (link.toNode === father)).forEach(link => {
+            grandpaNode = link.fromNode
+            if (grandpaNode.color === '#F68A08') {
+              grandpa = grandpaNode
+              console.log('grandpaNode : ' + grandpaNode)
+            }
+          })
+        }
+      })
+      let body = {
+        id: grandpa.id,
+        table: father.text,
+        column: nodeObject.text
+      }
+      console.log('body : ' + body.id + body.table + body.column)
+      getNodeTextRange(body).then((response) => {
+        const res = response.data
+        console.log(res)
+      })
     },
     onLineClick (lineObject, $event) {
-      console.log('onLineClick:', lineObject)
     }
   },
   watch: {

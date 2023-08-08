@@ -9,7 +9,7 @@
           <DataGraph :graph_json_data="graph_json_data" />
         </div>
         <div class="right">
-          <Card>
+          <Card style="height:calc(100vh - 50px)">
             xxx
           </Card>
         </div>
