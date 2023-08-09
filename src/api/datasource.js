@@ -51,6 +51,14 @@ export const getMetadataGraph = (id) => {
   })
 }
 
+
+export const extractMetadata = (id) => {
+  return axios.request({
+    url: `datasource/extractMetadata/${id}`,
+    method: 'post'
+  })
+}
+
 export const getNodeTextRange = (body) => {
   return axios.request({
     url: '/graph/getNodeTextRange',

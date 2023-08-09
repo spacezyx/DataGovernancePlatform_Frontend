@@ -10,7 +10,7 @@
 <script>
 import Tables from '_c/tables'
 import PopConfirmButton from '_c/pop-confirm-button'
-import { getDatasourceList } from '@/api/datasource'
+import { extractMetadata, getDatasourceList } from '@/api/datasource'
 export default {
   name: 'datasource',
   components: {
@@ -164,9 +164,32 @@ export default {
         console.log(this.tableData)
       })
     },
-    handleExtract () {
+    handleExtract (initRowIndex) {
       // TODO: 抽取
-      this.refreshList()
+      extractMetadata(this.tableData[initRowIndex].id).then(response => {
+        const res = response.data
+        console.log(res)
+        if (res.code === 0) {
+          this.$Notice.success({
+            title: 'Success',
+            desc: res.data,
+            duration: 15
+          })
+          this.refreshList()
+        } else if (res.code === -1) {
+          this.$Notice.error({
+            title: 'Failure',
+            desc: res.message,
+            duration: 15
+          })
+        } else {
+          this.$Notice.error({
+            title: 'Failure',
+            desc: '发生未知错误,请核验配置信息后重试',
+            duration: 15
+          })
+        }
+      })
     },
     handleFuse () {
       // TODO: 融合
