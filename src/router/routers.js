@@ -104,6 +104,44 @@ export default [
           title: '抽取结果展示'
         },
         component: () => import('@/view/metadata/metadata-graph.vue')
+      },
+      {
+        path: 'fusion',
+        name: '融合结果展示',
+        meta: {
+          icon: 'ios-bookmark-outline',
+          title: '融合结果展示'
+        },
+        component: () => import('@/view/metadata/metadata-graph.vue')
+      }
+    ]
+  },
+  {
+    path: '/assets',
+    name: '数据资产管理',
+    meta: {
+      icon: 'ios-stats',
+      title: '数据资产管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'topic',
+        name: '主题域管理',
+        meta: {
+          icon: 'md-add',
+          title: '主题域管理'
+        },
+        component: () => import('@/view/assets/topic.vue')
+      },
+      {
+        path: 'lists',
+        name: '数据资产目录',
+        meta: {
+          icon: 'ios-bookmark-outline',
+          title: '数据资产目录'
+        },
+        component: () => import('@/view/metadata/metadata-graph.vue')
       }
     ]
   },

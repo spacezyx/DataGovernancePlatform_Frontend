@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="height:calc(100vh - 50px);">
+    <div style="height:calc(85vh - 50px);">
       <Select v-model="selectItem" style="width:200px" @on-change="selectedMethod">
         <Option v-for="item in selectList" :value="item.value" :key="item.value">{{ item.label }}</Option>
       </Select>
@@ -9,7 +9,7 @@
           <DataGraph :graph_json_data="graph_json_data" />
         </div>
         <div class="right">
-          <Card style="height:calc(100vh - 50px)">
+          <Card style="height:calc(85vh - 50px)">
             <Divider>属性取值</Divider>
             <Row>
               <Col>
