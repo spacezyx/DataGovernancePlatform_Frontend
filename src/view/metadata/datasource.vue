@@ -4,6 +4,21 @@
       <tables ref="tables" editable searchable search-place="top" v-model="tableData" :columns="columns"  style="white-space: pre-line"/>
       <!--      <Button style="margin: 20px 0;" type="primary" @click="exportExcel" >导出为Csv文件</Button>-->
     </Card>
+    <Modal
+      v-model="modal"
+      title="元数据融合"
+      @on-ok="handleMetaFuse"
+      @on-cancel="cancel">
+      <template v-if="hasTrueFuseFlag===false">
+        <Radio v-model="single">融合图谱中不存在数据，此数据源将作为初始数据</Radio>
+      </template>
+      <Divider>
+        选择主题域
+      </Divider>
+      <Select v-model="selectTopic">
+        <Option v-for="item in topics" :key="item.name" :value="item.name">{{ item.name }}</Option>
+      </Select>
+    </Modal>
   </div>
 </template>
 
@@ -11,6 +26,7 @@
 import Tables from '_c/tables'
 import PopConfirmButton from '_c/pop-confirm-button'
 import { extractMetadata, getDatasourceList } from '@/api/datasource'
+import { getAllTopics } from '@/api/assets'
 export default {
   name: 'datasource',
   components: {
@@ -18,6 +34,9 @@ export default {
   },
   data () {
     return {
+      modal: false,
+      selectTopic: '',
+      single: true,
       columns: [
         {
           type: 'expand',
@@ -92,7 +111,7 @@ export default {
                 },
                 buttonText: '融合',
                 popTipTitle: '确定要融合这个数据源的元数据信息？',
-                ok: () => this.handleFuse(row.initRowIndex)
+                ok: () => this.handleFuseClick(row.initRowIndex)
               }
             })
             const notFuseButton = h('Button',
@@ -138,7 +157,9 @@ export default {
       tableExpandData: {
         lastExtractTime: '',
         lastFuseTime: ''
-      }
+      },
+      hasTrueFuseFlag: false,
+      topics: []
     }
   },
   methods: {
@@ -191,9 +212,22 @@ export default {
         }
       })
     },
-    handleFuse () {
-      // TODO: 融合
+    handleFuseClick () {
+      this.modal = true
+      this.hasTrueFuseFlag = this.tableData.some(item => item.fuseFlag === true)
+      this.getTopics()
+    },
+    cancel () {
+      this.modal = false
+    },
+    handleMetaFuse () {
+      this.modal = false
       this.refreshList()
+    },
+    getTopics () {
+      getAllTopics().then(res => {
+        this.topics = res.data
+      })
     }
   },
   mounted () {
