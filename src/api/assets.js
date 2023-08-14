@@ -14,3 +14,10 @@ export const deleteTopic = (id) => {
     method: 'delete'
   })
 }
+
+export const getAllTopics = () => {
+  return axios.request({
+    url: 'topic/getAll',
+    method: 'get'
+  })
+}

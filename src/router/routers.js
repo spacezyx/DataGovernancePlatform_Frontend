@@ -45,7 +45,7 @@ export default [
           notCache: true,
           icon: 'md-home'
         },
-        component: () => import('@/view/single-page/home')
+        component: () => import('@/view/datasource/register.vue')
       }
     ]
   },

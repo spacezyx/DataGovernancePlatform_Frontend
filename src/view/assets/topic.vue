@@ -4,7 +4,7 @@
     <Modal
       v-model="modal"
       title="新建主题域"
-      @on-ok="ok"
+      @on-ok="handleAddTopic"
       @on-cancel="cancel">
       <Form ref="formCustom" :model="formCustom" :label-width="80">
         <FormItem label="名称" prop="name">
@@ -22,11 +22,11 @@
 
 <script>
 import Tables from '_c/tables'
-import PopConfirmButton from "_c/pop-confirm-button";
-import {createTopic, deleteTopic} from '@/api/assets'
-import {insertDataSource} from "@/api/datasource";
+import PopConfirmButton from '_c/pop-confirm-button'
+import { createTopic, deleteTopic, getAllTopics } from '@/api/assets'
+
 export default {
-  name: "topic",
+  name: 'topic',
   components: {
     Tables
   },
@@ -63,7 +63,7 @@ export default {
       formCustom: {
         name: '',
         description: ''
-      },
+      }
     }
   },
   methods: {
@@ -87,8 +87,10 @@ export default {
         }
       })
     },
-    handleAddTopic(formCustom) {
-      createTopic(formCustom).then(response => {
+    // TODO: 设置表格可修改
+    handleAddTopic () {
+      console.log(this.formCustom)
+      createTopic(this.formCustom).then(response => {
         const res = response.data
         console.log(res)
         if (res.code === 0) {
@@ -97,6 +99,7 @@ export default {
             desc: res.data,
             duration: 15
           })
+          this.refreshList()
         } else if (res.code === -1) {
           this.$Notice.error({
             title: 'Failure',
@@ -111,10 +114,18 @@ export default {
           })
         }
       })
+    },
+    cancel () {
+      this.modal = false
+    },
+    refreshList () {
+      getAllTopics().then(res => {
+        this.tableData = res.data
+      })
     }
   },
   mounted () {
-    getTableData().then(res => {
+    getAllTopics().then(res => {
       this.tableData = res.data
     })
   }
