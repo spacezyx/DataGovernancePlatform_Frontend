@@ -110,6 +110,12 @@ export default {
   background-color: #f2f2f2;
 }
 
+.centered-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 .right {
   float: left;
   width: 25%;

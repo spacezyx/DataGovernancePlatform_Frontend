@@ -16,7 +16,7 @@
         选择主题域
       </Divider>
       <Select v-model="selectTopic">
-        <Option v-for="item in topics" :key="item.name" :value="item.name">{{ item.name }}</Option>
+        <Option v-for="item in topics" :key="item.id" :value="item.name">{{ item.name }}</Option>
       </Select>
     </Modal>
   </div>
