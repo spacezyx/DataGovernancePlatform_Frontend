@@ -112,7 +112,7 @@ export default [
           icon: 'ios-bookmark-outline',
           title: '融合结果展示'
         },
-        component: () => import('@/view/metadata/metadata-graph.vue')
+        component: () => import('@/view/metadata/fuse.vue')
       }
     ]
   },

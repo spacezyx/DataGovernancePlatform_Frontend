@@ -103,8 +103,7 @@ export default {
           desc: '填写内容为空，请填写内容后重试',
           duration: 15
         })
-      }
-      else {
+      } else {
         createTopic(this.formCustom).then(response => {
           const res = response.data
           console.log(res)

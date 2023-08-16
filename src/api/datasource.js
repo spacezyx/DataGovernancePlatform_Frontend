@@ -51,7 +51,6 @@ export const getMetadataGraph = (id) => {
   })
 }
 
-
 export const extractMetadata = (id) => {
   return axios.request({
     url: `datasource/extractMetadata/${id}`,
@@ -70,6 +69,14 @@ export const getNodeTextRange = (body) => {
 export const getRangeValue = (body) => {
   return axios.request({
     url: '/graph/getRangeValue',
+    method: 'post',
+    data: body
+  })
+}
+
+export const fuseTest = (body) => {
+  return axios.request({
+    url: '/fuse/fuseTest',
     method: 'post',
     data: body
   })

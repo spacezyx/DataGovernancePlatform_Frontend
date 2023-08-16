@@ -16,8 +16,17 @@
         选择主题域
       </Divider>
       <Select v-model="selectTopic">
-        <Option v-for="item in topics" :key="item.id" :value="item.name">{{ item.name }}</Option>
+        <Option v-for="item in topics" :key="item.id" :value="item.id">{{ item.name }}</Option>
       </Select>
+    </Modal>
+    <Modal
+      v-model="checkModal"
+      title="融合信息调整"
+      footer-hide="true">
+      <Divider>
+        元数据融合调整
+      </Divider>
+      <CheckInfoTable></CheckInfoTable>
     </Modal>
   </div>
 </template>
@@ -25,18 +34,41 @@
 <script>
 import Tables from '_c/tables'
 import PopConfirmButton from '_c/pop-confirm-button'
-import { extractMetadata, getDatasourceList } from '@/api/datasource'
+import {extractMetadata, fuseTest, getDatasourceList} from '@/api/datasource'
 import { getAllTopics } from '@/api/assets'
+import CheckInfoTable from '_c/check-info-table/check-info-table'
 export default {
   name: 'datasource',
   components: {
+    CheckInfoTable,
     Tables
   },
   data () {
     return {
+      checkModal: false,
       modal: false,
       selectTopic: '',
       single: true,
+      fuseId: '',
+      checkColumns: [
+        {
+          type: 'selection',
+          width: 60,
+          align: 'center'
+        },
+        {
+          title: 'Name',
+          key: 'name'
+        },
+        {
+          title: 'Type',
+          key: 'newFlag'
+        },
+        {
+          title: 'Address',
+          key: 'address'
+        }
+      ],
       columns: [
         {
           type: 'expand',
@@ -186,7 +218,6 @@ export default {
       })
     },
     handleExtract (initRowIndex) {
-      // TODO: 抽取
       extractMetadata(this.tableData[initRowIndex].id).then(response => {
         const res = response.data
         console.log(res)
@@ -212,9 +243,10 @@ export default {
         }
       })
     },
-    handleFuseClick () {
+    handleFuseClick (initRowIndex) {
       this.modal = true
       this.hasTrueFuseFlag = this.tableData.some(item => item.fuseFlag === true)
+      this.fuseId = this.tableData[initRowIndex].id
       this.getTopics()
     },
     cancel () {
@@ -222,12 +254,24 @@ export default {
     },
     handleMetaFuse () {
       this.modal = false
+      let body = {'id': this.fuseId, 'topicAreaId': this.selectTopic}
+      fuseTest(body).then(response => {
+        const res = response.data
+        console.log(res)
+      })
+      this.checkModal = true
       this.refreshList()
+    },
+    handleFuseConfirm () {
+      // TODO: 确认融合
     },
     getTopics () {
       getAllTopics().then(res => {
         this.topics = res.data
       })
+    },
+    handleSelectAll (status) {
+      this.$refs.selection.selectAll(status);
     }
   },
   mounted () {
