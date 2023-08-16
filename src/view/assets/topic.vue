@@ -7,10 +7,10 @@
       @on-ok="handleAddTopic"
       @on-cancel="cancel">
       <Form ref="formCustom" :model="formCustom" :label-width="80">
-        <FormItem label="名称" prop="name">
+        <FormItem required label="名称" prop="name">
           <Input clearable v-model="formCustom.name"></Input>
         </FormItem>
-        <FormItem label="描述" prop="description">
+        <FormItem required label="描述" prop="description">
           <Input clearable type="textarea" :rows="4"  v-model="formCustom.description"></Input>
         </FormItem>
       </Form>
@@ -90,30 +90,46 @@ export default {
     // TODO: 设置表格可修改
     handleAddTopic () {
       console.log(this.formCustom)
-      createTopic(this.formCustom).then(response => {
-        const res = response.data
-        console.log(res)
-        if (res.code === 0) {
-          this.$Notice.success({
-            title: 'Success',
-            desc: res.data,
-            duration: 15
-          })
-          this.refreshList()
-        } else if (res.code === -1) {
-          this.$Notice.error({
-            title: 'Failure',
-            desc: res.message,
-            duration: 15
-          })
-        } else {
-          this.$Notice.error({
-            title: 'Failure',
-            desc: '发生未知错误,请核验配置信息后重试',
-            duration: 15
-          })
-        }
-      })
+      const exists = this.tableData.some(item => item[name] === this.formCustom.name);
+      if(exists) {
+        this.$Notice.error({
+          title: 'Failure',
+          desc: '已存在该主题域',
+          duration: 15
+        })
+      } else if(this.formCustom.name === '' || this.formCustom.description === '') {
+        this.$Notice.error({
+          title: 'Failure',
+          desc: '填写内容为空，请填写内容后重试',
+          duration: 15
+        })
+      }
+      else {
+        createTopic(this.formCustom).then(response => {
+          const res = response.data
+          console.log(res)
+          if (res.code === 0) {
+            this.$Notice.success({
+              title: 'Success',
+              desc: res.data,
+              duration: 15
+            })
+            this.refreshList()
+          } else if (res.code === -1) {
+            this.$Notice.error({
+              title: 'Failure',
+              desc: res.message,
+              duration: 15
+            })
+          } else {
+            this.$Notice.error({
+              title: 'Failure',
+              desc: '发生未知错误,请核验配置信息后重试',
+              duration: 15
+            })
+          }
+        })
+      }
     },
     cancel () {
       this.modal = false
