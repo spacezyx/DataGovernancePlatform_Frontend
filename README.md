@@ -1,12 +1,6 @@
-<p align="center">
-    <a href="https://www.iviewui.com">
-        <img width="200" src="https://file.iviewui.com/logo-new.svg">
-    </a>
-</p>
-
 <h1>
-iView Admin
-    <h3>Vue.js 2.0 admin management system template based on iView.</h3>
+数据治理平台前端项目
+    <h3>这是一个使用 Vue.js 和 iView 组件库构建的数据治理平台的前端项目，用于管理和处理数据资源。</h3>
 </h1>
 
 [![](https://img.shields.io/github/release/iview/iview-admin.svg)](https://github.com/iview/iview-admin/releases)
@@ -15,62 +9,51 @@ iView Admin
 [![iview ui](https://img.shields.io/badge/iview-3.2.2-brightgreen.svg?style=flat-square)](https://github.com/iview/iview)
 [![npm](https://img.shields.io/npm/l/express.svg)]()
 
-## Introduction
+## 项目介绍
 
-iView Admin is a front-end management background integration solution. It based on [Vue.js](https://github.com/vuejs/vue) and use the UI Toolkit [iView](https://github.com/iview/iview).
+本项目旨在创建一个功能强大的数据治理平台，能够方便地管理、处理和可视化各种数据资源。项目使用 iView 组件库提供的丰富 UI 组件，以及 Vue.js 的灵活性，使得用户能够高效地进行数据管理和分析。
 
-- [Document](https://lison16.github.io/iview-admin-doc/)
-- [Preview](https://admin.iviewui.com/)
-- [Base template recommends using](https://github.com/iview/iview-admin/tree/template)
+## 功能特点
+使用 iView 组件库，提供丰富的 UI 组件和交互效果。
+实现数据资源的元数据管理以及上传、下载、管理功能。
+路由页面的配置集中在 src/router/router.js 文件中。
+前后端交互接口定义在 src/api/datasource.js 和 src/api/assets.js 中。
+页面组件存放在 src/views/ 目录中。
 
-![image](https://file.iviewui.com/admin-dist/admin-preview.png)
 
-## Features
+## 目录结构
+```
+├── public/
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── api/
+│   │   ├── datasource.js
+│   │   ├── assets.js
+│   │   └── ...
+│   ├── assets/
+│   ├── components/
+│   ├── router/
+│   │   └── router.js
+│   ├── views/
+│   │   ├── Dashboard.vue
+│   │   ├── DataSource.vue
+│   │   └── ...
+│   ├── App.vue
+│   └── main.js
+├── docs/
+│   ├── deployment.md
+│   └── ...
+├── README.md
+└── ...
 
-- Login / Logout
-- Permission Authentication
-    - A list of filters
-    - Permission to switch
-- i18n
-- Components
-    - Rich Text Editor
-    - Markdown Editor
-    - City Cascader
-    - Photos preview and edit
-    - Draggable list
-    - File upload
-    - Digital gradient
-    - split-pane
-- Form
-    - The article published
-    - Workflow
-- Table
-    - Drag-and-drop sort
-    - Searchable form
-    - Table export data
-        - Export to Csv file
-        - Export to Xls file
-    - Table to picture
-- Error Page
-    - 403
-    - 404
-    - 500
-- Router
-    - Dynamic routing
-    - With reference page
-- Theme
-- Shrink the sidebar
-- Tag navigation
-- Breadcrumb navigation
-- Full screen / exit full screen
-- Lock screen
-- The message center
-- Personal center
+```
 
-## Getting started
+
+## 开始使用
 ```bush
 # clone the project
-git clone https://github.com/iview/iview-admin.git
+git clone https://github.com/spacezyx/DataGovernancePlatform_Frontend.git
 
 // install dependencies
 npm install
@@ -79,12 +62,12 @@ npm install
 npm run dev
 ```
 
-## Build
+## 构建项目
 ```bush
 npm run build
 ```
 
-## License
+## 许可证
 [MIT](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2016-present, TalkingData
+
