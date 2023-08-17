@@ -170,7 +170,7 @@ export default [
           icon: 'md-add',
           title: '数据搜索定位'
         },
-        component: () => import('@/view/assets/topic.vue')
+        component: () => import('@/view/data-service/search.vue')
       },
       {
         path: 'tracing',
