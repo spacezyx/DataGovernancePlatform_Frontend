@@ -20,10 +20,13 @@
           </template>
         </template>
       </Table>
+      <Divider>
+        确认融合
+      </Divider>
+      <Button type="primary" style="alignment: center" long @click="click">
+        确认
+      </Button>
     </Card>
-    <Divider>
-      确认融合
-    </Divider>
   </div>
 </template>
 
@@ -52,7 +55,7 @@ export default {
           key: 'title'
         },
         {
-          title: '二选一',
+          title: '融合方式',
           key: 'selection',
           render: (h, params) => {
             return h('Select', {
@@ -66,8 +69,8 @@ export default {
                 }
               }
             }, [
-              h('Option', { props: { value: 'input' } }, '输入框'),
-              h('Option', { props: { value: 'select' } }, '下拉框')
+              h('Option', { props: { value: 'input' } }, '创建新节点'),
+              h('Option', { props: { value: 'select' } }, '融合到已有')
             ]);
           }
         },
@@ -79,11 +82,11 @@ export default {
               return h('Input', {
                 props: {
                   value: params.row.inputValue
-                },
-                on: {
-                  'on-change': value => {
-                    params.row.inputValue = value;
-                  }
+                // },
+                // on: {
+                //   'on-change': value => {
+                //     params.row.inputValue = value;
+                //   }
                 }
               });
             } else if (params.row.selection === 'select') {
@@ -98,20 +101,31 @@ export default {
                   }
                 }
               }, [
-                h('Option', { props: { value: 'option1' } }, '选项1'),
-                h('Option', { props: { value: 'option2' } }, '选项2')
+                h('Option', { props: { value: 'option1' } }, 'department'),
+                h('Option', { props: { value: 'option2' } }, 'products'),
+                h('Option', { props: { value: 'option3' } }, 'orders')
               ]);
             }
           }
         }
       ],
       tableData: [
-        { id: 1, title: '项目1', selection: 'input', inputValue: '' },
-        { id: 2, title: '项目2', selection: 'select', selectValue: 'option1' },
-        { id: 3, title: '项目3', selection: 'input', inputValue: '' }
+        { id: 1, title: 'department', selection: 'select', inputValue: 'option1' },
+        { id: 2, title: 'employee', selection: 'select', selectValue: 'employee' },
+        { id: 3, title: 'employeeproject', selection: 'input', inputValue: 'project' },
+        { id: 4, title: 'project', selection: 'input', inputValue: 'project' }
         // 可根据需要添加更多数据
       ],
       selectedRows: []
+    }
+  },
+  methods: {
+    click() {
+      this.$Notice.success({
+        title: 'Success',
+        desc: '融合中',
+        duration: 15
+      })
     }
   }
 };

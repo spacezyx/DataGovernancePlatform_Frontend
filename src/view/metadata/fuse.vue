@@ -186,21 +186,6 @@ export default {
             color: '#65A3B7'
           },
           {
-            id: '64dc7af3444414660ee4fcef',
-            text: 'department',
-            color: '#B1BB96'
-          },
-          {
-            id: '64dc7af3444414660ee4fcefname',
-            text: 'name',
-            color: '#65A3B7'
-          },
-          {
-            id: '64dc7af3444414660ee4fcefid',
-            text: 'id',
-            color: '#65A3B7'
-          },
-          {
             id: '64cca4bd5cf83a70c4959dc5',
             text: 'manufacture0803',
             color: '#F68A08'
@@ -436,27 +421,6 @@ export default {
           {
             from: '64dc7af3444414660ee4fcee',
             to: '64dc7af3444414660ee4fceeorder_id',
-            text: '包含属性',
-            color: '#D2C0A5',
-            fontColor: '#D2C0A5'
-          },
-          {
-            from: '64cca4955cf83a70c4959dc4',
-            to: '64dc7af3444414660ee4fcef',
-            text: '包含数据表',
-            color: '#D2C0A5',
-            fontColor: '#D2C0A5'
-          },
-          {
-            from: '64dc7af3444414660ee4fcef',
-            to: '64dc7af3444414660ee4fcefname',
-            text: '包含属性',
-            color: '#D2C0A5',
-            fontColor: '#D2C0A5'
-          },
-          {
-            from: '64dc7af3444414660ee4fcef',
-            to: '64dc7af3444414660ee4fcefid',
             text: '包含属性',
             color: '#D2C0A5',
             fontColor: '#D2C0A5'
