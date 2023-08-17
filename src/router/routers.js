@@ -141,6 +141,44 @@ export default [
           icon: 'ios-bookmark-outline',
           title: '数据资产目录'
         },
+        component: () => import('@/view/assets/assets.vue')
+      // },
+      // {
+      //   path: 'download',
+      //   name: '数据资产导出',
+      //   meta: {
+      //     icon: 'ios-bookmark-outline',
+      //     title: '数据资产导出'
+      //   },
+      //   component: () => import('@/view/metadata/metadata-graph.vue')
+      }
+    ]
+  },
+  {
+    path: '/service',
+    name: '数据应用服务',
+    meta: {
+      icon: 'ios-stats',
+      title: '数据应用服务'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'search',
+        name: '数据搜索定位',
+        meta: {
+          icon: 'md-add',
+          title: '数据搜索定位'
+        },
+        component: () => import('@/view/assets/topic.vue')
+      },
+      {
+        path: 'tracing',
+        name: '数据血缘追溯',
+        meta: {
+          icon: 'ios-bookmark-outline',
+          title: '数据血缘追溯'
+        },
         component: () => import('@/view/metadata/metadata-graph.vue')
       }
     ]

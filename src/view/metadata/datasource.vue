@@ -9,15 +9,29 @@
       title="元数据融合"
       @on-ok="handleMetaFuse"
       @on-cancel="cancel">
-      <template v-if="hasTrueFuseFlag===false">
-        <Radio v-model="single">融合图谱中不存在数据，此数据源将作为初始数据</Radio>
-      </template>
+<!--      <template v-if="hasTrueFuseFlag===false">-->
+<!--        <Radio v-model="single">融合图谱中不存在数据，此数据源将作为初始数据</Radio>-->
+<!--      </template>-->
       <Divider>
         选择主题域
       </Divider>
       <Select v-model="selectTopic">
         <Option v-for="item in topics" :key="item.id" :value="item.id">{{ item.name }}</Option>
       </Select>
+      <Divider>
+        信息填充
+      </Divider>
+      <Form ref="formValidate" :model="formValidate" >
+        <FormItem label="中文名" prop="name">
+          <Input v-model="formValidate.name"></Input>
+        </FormItem>
+        <FormItem label="描述" prop="mail">
+          <Input v-model="formValidate.mail"></Input>
+        </FormItem>
+        <FormItem label="所有者" prop="mail">
+          <Input v-model="formValidate.mail"></Input>
+        </FormItem>
+      </Form>
     </Modal>
     <Modal
       v-model="checkModal"
@@ -34,7 +48,7 @@
 <script>
 import Tables from '_c/tables'
 import PopConfirmButton from '_c/pop-confirm-button'
-import {extractMetadata, fuseTest, getDatasourceList} from '@/api/datasource'
+import { extractMetadata, fuseTest, getDatasourceList } from '@/api/datasource'
 import { getAllTopics } from '@/api/assets'
 import CheckInfoTable from '_c/check-info-table/check-info-table'
 export default {
@@ -46,6 +60,7 @@ export default {
   data () {
     return {
       checkModal: false,
+      formValidate: {},
       modal: false,
       selectTopic: '',
       single: true,
@@ -254,7 +269,7 @@ export default {
     },
     handleMetaFuse () {
       this.modal = false
-      let body = {'id': this.fuseId, 'topicAreaId': this.selectTopic}
+      let body = { 'id': this.fuseId, 'topicAreaId': this.selectTopic }
       fuseTest(body).then(response => {
         const res = response.data
         console.log(res)
@@ -271,7 +286,7 @@ export default {
       })
     },
     handleSelectAll (status) {
-      this.$refs.selection.selectAll(status);
+      this.$refs.selection.selectAll(status)
     }
   },
   mounted () {

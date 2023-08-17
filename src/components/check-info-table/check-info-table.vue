@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { Table, Checkbox, Select, Option, Input } from 'iview';
+import { Table, Checkbox, Select, Option, Input } from 'iview'
 
 export default {
   name: 'checkInfoTable',
@@ -42,7 +42,7 @@ export default {
     Option,
     Input
   },
-  data() {
+  data () {
     return {
       columns: [
         {
@@ -65,13 +65,13 @@ export default {
               },
               on: {
                 'on-change': value => {
-                  params.row.selection = value;
+                  params.row.selection = value
                 }
               }
             }, [
               h('Option', { props: { value: 'input' } }, '创建新节点'),
               h('Option', { props: { value: 'select' } }, '融合到已有')
-            ]);
+            ])
           }
         },
         {
@@ -88,7 +88,7 @@ export default {
                 //     params.row.inputValue = value;
                 //   }
                 }
-              });
+              })
             } else if (params.row.selection === 'select') {
               return h('Select', {
                 props: {
@@ -97,14 +97,14 @@ export default {
                 },
                 on: {
                   'on-change': value => {
-                    params.row.selectValue = value;
+                    params.row.selectValue = value
                   }
                 }
               }, [
-                h('Option', { props: { value: 'option1' } }, 'department'),
-                h('Option', { props: { value: 'option2' } }, 'products'),
-                h('Option', { props: { value: 'option3' } }, 'orders')
-              ]);
+                h('Option', { props: { value: 'option1' } }, 'department  相似度: 0.825'),
+                h('Option', { props: { value: 'option2' } }, 'products  相似度: 0.525'),
+                h('Option', { props: { value: 'option3' } }, 'orders  相似度: 0.411')
+              ])
             }
           }
         }
@@ -120,7 +120,7 @@ export default {
     }
   },
   methods: {
-    click() {
+    click () {
       this.$Notice.success({
         title: 'Success',
         desc: '融合中',
@@ -128,7 +128,7 @@ export default {
       })
     }
   }
-};
+}
 </script>
 
 <style scoped>
