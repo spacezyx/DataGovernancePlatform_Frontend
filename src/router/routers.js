@@ -179,7 +179,7 @@ export default [
           icon: 'ios-bookmark-outline',
           title: '数据血缘追溯'
         },
-        component: () => import('@/view/metadata/metadata-graph.vue')
+        component: () => import('@/view/data-service/tracing.vue')
       }
     ]
   },

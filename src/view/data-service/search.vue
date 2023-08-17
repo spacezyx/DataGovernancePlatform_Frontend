@@ -55,27 +55,24 @@
       <tables ref='tables' editable searchable search-place='top' v-model='tableData' :columns='columns' @on-delete='handleDelete'/>
       <Button style='margin: 10px 0;' type='primary' @click='exportExcel'>导出所有数据</Button>
     </template>
-    <Modal>
-      <Modal
-        v-model='modal'
-        title='数据详细信息'
-        @on-ok='ok'
-        @on-cancel='cancel'>
-        <p>业务域: 设计域</p>
-        <p>名称: 产品图纸</p>
-        <p>描述: 包括客户姓名、联系方式等信息的数据表</p>
-        <p>语义标签: 客户信息，决策层</p>
-        <p>数据源类型: 非结构化</p>
-        <p>URI: data:design/drawing/unstructure/ftp://myuser:mypassword@example.com:21/paper</p>
-        <p>原始数据地址: ftp://myuser:mypassword@example.com:21/</p>
-      </Modal>
+    <Modal
+      v-model='modal'
+      title='数据详细信息'
+      @on-ok='ok'
+      @on-cancel='cancel'>
+      <p>业务域: 设计域</p>
+      <p>名称: 产品图纸</p>
+      <p>描述: 包括客户姓名、联系方式等信息的数据表</p>
+      <p>语义标签: 客户信息，决策层</p>
+      <p>数据源类型: 非结构化</p>
+      <p>URI: data:design/drawing/unstructure/ftp://myuser:mypassword@example.com:21/paper</p>
+      <p>原始数据地址: ftp://myuser:mypassword@example.com:21/</p>
     </Modal>
   </div>
 </template>
 
 <script>
 import Tables from '_c/tables'
-import { getTableData } from '@/api/data'
 
 export default {
   name: 'search',
@@ -135,7 +132,7 @@ export default {
       ],
       tableData: [
         { name: '产品图纸', topic: '设计域', tag: '客户信息，决策层', URI: 'data:design/drawing/unstructure/ftp://myuser:mypassword@example.com:21/paper' },
-        { name: '订单数据', topic: '制造域', tag: '销售数据，客户信息，订单信息，决策层', URI: 'data:manufacture/order/structure/postgresql://127.0.0.1:5432/manufacture/order' },
+        { name: '订单数据', topic: '销售域', tag: '销售数据，客户信息，订单信息，决策层', URI: 'data:sales/order/structure/postgresql://127.0.0.1:5432/sales/order' },
         { name: '产品信息', topic: '制造域', tag: '产品信息，决策层', URI: 'data:manufacture/product/structure/postgresql://127.0.0.1:5432/manufacture/product' },
         { name: '客户数据', topic: '运维域', tag: '客户信息，决策层', URI: 'data:devops/customer/semistructure/mongodb://127.0.0.1:27012/devops/customer' }
       ]
@@ -150,12 +147,12 @@ export default {
         filename: `table-${(new Date()).valueOf()}.csv`
       })
     },
-    ok () {
-      this.$Message.info('Clicked ok');
-    },
-    cancel () {
-      this.$Message.info('Clicked cancel');
-    },
+    // ok () {
+    //   this.$Message.info('Clicked ok')
+    // },
+    // cancel () {
+    //   this.$Message.info('Clicked cancel')
+    // },
     showTable () {
       this.tableShow = true
     }
