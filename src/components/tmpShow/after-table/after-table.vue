@@ -6,15 +6,15 @@
       title='数据详细信息'
       @on-ok='ok'
       @on-cancel='cancel'>
-      <p>名称: 产品价格</p>
-      <p>字段名: price</p>
-      <p>业务域: 制造域</p>
-      <p>描述: 产品价格值</p>
-      <p>语义标签: 产品信息，单价</p>
+      <p>名称: 利润</p>
+      <p>字段名: profit</p>
+      <p>业务域: 销售域</p>
+      <p>描述: 企业利润值</p>
+      <p>语义标签: 利润，销售数据，决策域</p>
       <p>数据源类型: 结构化</p>
       <p>数据类型: DOUBLE</p>
-      <p>URI: data:manufacture/product/structure/postgresql://127.0.0.1:5432/manufacture/product/price</p>
-      <p>原始数据地址: postgresql://127.0.0.1:5432/manufacture/product/price</p>
+      <p>URI: data:sales/statistic/structure/postgresql://127.0.0.1:5432/manufacture/statistic/profit</p>
+      <p>原始数据地址: postgresql://127.0.0.1:5432/manufacture/statistic/profit</p>
     </Modal>
   </div>
 </template>
@@ -23,7 +23,7 @@
 import Tables from '_c/tables'
 
 export default {
-  name: 'before-table',
+  name: 'after-table',
   components: {
     Tables
   },
@@ -62,8 +62,8 @@ export default {
         }
       ],
       tableData: [
-        { name: '数量', topic: '销售域', tag: '订单信息，销售数据', URI: 'data:sales/order/structure/postgresql://127.0.0.1:5432/sales/order/num' },
-        { name: '产品价格', topic: '制造域', tag: '产品信息，单价', URI: 'data:manufacture/product/structure/postgresql://127.0.0.1:5432/manufacture/product/price' }
+        { name: '营收', topic: '销售域', tag: '营收，销售数据，决策域', URI: 'data:sales/statistic/structure/postgresql://127.0.0.1:5432/manufacture/statistic/income' },
+        { name: '利润', topic: '销售域', tag: '利润，销售数据，决策域', URI: 'data:sales/statistic/structure/postgresql://127.0.0.1:5432/manufacture/statistic/profit' }
       ]
     }
   },

@@ -35,6 +35,7 @@
         </Select>
       </Col>
     </Row>
+    URI = data:主题域/语义名/数据库地址/表名/字段名
     <Divider>数据资产目录(例子 TODO)</Divider>
     <div class="image-container">
       <img src="../../assets/images/img_1.png" alt="PNG Image" />
